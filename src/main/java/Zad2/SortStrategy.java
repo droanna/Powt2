@@ -5,35 +5,33 @@ import java.util.Random;
 
 public class SortStrategy {
 
-    private CountingSort countingSort = new CountingSort();
-    private BubbleSort bubbleSort = new BubbleSort();
-
-    public void main(String[] args) {
-        Integer[] values = {1,5,2,8,10,7,9,12};
-        String sort = "bubble";
-        sortStrategy(values, sort);
-        Arrays.stream(values).forEachOrdered((value -> System.out.print(value + " ")));
-    }
+    private Sort sort;
+    private String clientAnswear;
+    private Integer[] values;
 
 
-    public void sortStrategy(Integer[] values, String clientAnswear) {
+
+    public Integer[] setSort(String clientAnswear, Integer[] values) {
         if (areOnlyPositiveNumbers(values)) {
             if (selectTypeOfSorting(clientAnswear).equals("bubble")) {
-                bubbleSort.sort(values);
+                sort = new BubbleSort();
+                values = sort.sort(values);
+                return values;
             } else {
-                countingSort.sort(values);
+                sort = new CountingSort();
+                values = sort.sort(values);
+                return values;
             }
         } else {
-            bubbleSort.sort(values);
+            sort = new BubbleSort();
+            values = sort.sort(values);
+            return values;
         }
     }
 
     private boolean areOnlyPositiveNumbers(Integer[] input) {
         long negativeNumbers = Arrays.stream(input).filter(number -> number < 0).count();
-        if (negativeNumbers == 0) {
-            return true;
-        }
-        return false;
+        return (negativeNumbers == 0);
     }
 
     private String selectTypeOfSorting(String clientAnswear) {
@@ -43,7 +41,7 @@ public class SortStrategy {
             return "counting";
         }
         Random random = new Random();
-        int value = random.nextInt(1);
+        int value = random.nextInt(2);
         if (value == 0) {
             return "bubble";
         } else {

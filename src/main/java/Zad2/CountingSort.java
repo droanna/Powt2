@@ -3,7 +3,7 @@ package Zad2;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CountingSort implements Sort{
+public class CountingSort implements Sort {
 
     public Integer[] sort(Integer[] values) {
 
@@ -28,7 +28,7 @@ public class CountingSort implements Sort{
             result[value - 1] = values[i];
             summ.put(values[i], value - 1);
         }
-
-        return result;
+        values = result;
+        return values;
     }
 }
